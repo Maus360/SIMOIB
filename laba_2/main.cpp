@@ -4,7 +4,7 @@
 std::string propis = "abcdefghijklmnopqrstuvwxyz";
 std::string strochnie = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-std::string code(std::string& str, int n){
+std::string encrypt(std::string &str, int n){
     std::string result;
     for (char i : str) {
         if (i != ' '){
@@ -17,7 +17,7 @@ std::string code(std::string& str, int n){
     return result;
 }
 
-void decode(std::string& str){
+void decrypt(std::string &str){
     for (int i = 1; i < 26; i++){
         std::string result;
         for (char j : str) {
@@ -31,20 +31,23 @@ void decode(std::string& str){
     }
 }
 
+using namespace std;
+
 int main() {
-    std::ifstream in;
+    std::ifstream in("data");
     std::string s, s1;
-    in.open("data");
-    while (not in.eof()){
-        in >> s;
-        s1 += " " + s;
+    while (!in.eof()){
+        getline(in, s);
+        s1 += s;
     }
-    s1 = s1.substr(1, s1.length());
+    in.close();
+
+    //s1 = s1.substr(0, s1.length());
     std::cout << s1 << std::endl;
-    std::string res = code(s1, 1);
+    std::string res = encrypt(s1, 1);
     std::cout << res << std::endl;
     std::cout << "=================" << std::endl;
-    decode(res);
+    decrypt(res);
     std::cout << propis.find('i');
     return 0;
 }
